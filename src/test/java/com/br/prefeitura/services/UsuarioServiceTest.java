@@ -27,7 +27,7 @@ class UsuarioServiceTest {
 
     @Test
     void testSave() {
-        Usuario usuario = new Usuario(); // Preencha com dados reais
+        Usuario usuario = new Usuario();
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
 
         Usuario savedUsuario = usuarioService.save(usuario);
@@ -39,7 +39,7 @@ class UsuarioServiceTest {
     @Test
     void testFindById_ExistingUser() {
         Long userId = 1L;
-        Usuario usuario = new Usuario(); // Preencha com dados reais
+        Usuario usuario = new Usuario();
         when(usuarioRepository.findById(userId)).thenReturn(Optional.of(usuario));
 
         Optional<Usuario> foundUsuario = usuarioService.findById(userId);
