@@ -19,6 +19,10 @@ A **Prefeitura API** é um projeto de serviços que visa facilitar o acesso a in
 - **Autenticação**: JWT (JSON Web Tokens)
 - **Documentação da API**: Springdoc OpenAPI
 
+## UML
+
+![Diagrama do Projeto](D:\prefeitura-api\image_720.png)
+
 ## Exemplo de Estrutura do Projeto
 
 ```plaintext
