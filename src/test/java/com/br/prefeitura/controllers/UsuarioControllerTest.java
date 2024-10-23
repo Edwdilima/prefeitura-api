@@ -27,7 +27,7 @@ public class UsuarioControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        usuario = new Usuario(); // Inicialize com valores adequados
+        usuario = new Usuario();
         usuario.setId(1L);
         usuario.setEmail("weslley@test.com");
         // Configure outros atributos conforme necessário

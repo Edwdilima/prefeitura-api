@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface LicitacaoRepository extends JpaRepository<Licitacao, Long> {
 
@@ -17,4 +18,5 @@ public interface LicitacaoRepository extends JpaRepository<Licitacao, Long> {
 
     List<Licitacao> findByDataAberturaBetween(LocalDate dataInicio, LocalDate dataFim);
 
+    Optional<Licitacao> findByNumero(String numero);
 }

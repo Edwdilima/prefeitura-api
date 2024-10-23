@@ -44,9 +44,9 @@ public class AuthControllerTest {
         String email = "weslleyTestes@gmail.com";
         String password = "senha123";
         LoginRequestDTO loginRequest = new LoginRequestDTO(email, password);
-        Usuario usuario = new Usuario(); // criar o objeto usuario e definir propriedades
+        Usuario usuario = new Usuario();
 
-        // Mock do repositório e tokenService
+
         when(usuarioRepository.findByEmail(email)).thenReturn(Optional.of(usuario));
         when(passwordEncoder.matches(password, usuario.getSenha())).thenReturn(true);
         when(tokenService.generateToken(usuario)).thenReturn("mockedToken");
@@ -62,12 +62,11 @@ public class AuthControllerTest {
         String password = "senhaNova";
         LoginRequestDTO loginRequest = new LoginRequestDTO(email, password);
 
-        // Mock do repositório
+
         when(usuarioRepository.findByEmail(email)).thenReturn(Optional.empty());
 
         ResponseEntity<ResponseDTO> response = authController.login(loginRequest);
         assertEquals(400, response.getStatusCodeValue());
     }
 
-    // Adicione outros métodos de teste conforme necessário
 }

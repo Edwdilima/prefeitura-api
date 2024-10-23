@@ -65,4 +65,7 @@ public class LicitacaoDTO {
     public void setStatusLicitacao(StatusLicitacao statusLicitacao) {
         this.statusLicitacao = statusLicitacao;
     }
+
+    public void setId(long l) {
+    }
 }
