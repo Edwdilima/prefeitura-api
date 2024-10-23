@@ -19,7 +19,7 @@ A **Prefeitura API** é um projeto de serviços que visa facilitar o acesso a in
 - **Autenticação**: JWT (JSON Web Tokens)
 - **Documentação da API**: Springdoc OpenAPI
 
-## Estrutura do Projeto
+## Exemplo de Estrutura do Projeto
 
 ```plaintext
 prefeitura-api
