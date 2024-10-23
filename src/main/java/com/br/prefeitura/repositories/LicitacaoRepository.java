@@ -1,8 +1,9 @@
 package com.br.prefeitura.repositories;
 
+
+import com.br.prefeitura.enums.StatusLicitacao;
 import com.br.prefeitura.entities.Licitacao;
 import com.br.prefeitura.entities.Prefeitura;
-import com.br.prefeitura.enums.StatusLicitacao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

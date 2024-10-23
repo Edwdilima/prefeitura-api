@@ -1,5 +1,6 @@
 package com.br.prefeitura.entities;
 
+import com.br.prefeitura.enums.StatusLicitacao;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
@@ -37,13 +38,12 @@ public class Prefeitura {
     private List<Secretaria> secretarias = new ArrayList<>();
 
     @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL)
-    private List<Usuario> usuarios = new ArrayList<>();
+    private List<Licitacao> licitacoes = new ArrayList<>();
 
     @OneToMany(mappedBy = "prefeitura", cascade = CascadeType.ALL)
-    private List<Licitacao> licitacaos = new ArrayList<>();
+    private List<Proposta> propostas = new ArrayList<>();
 
     public Prefeitura(){}
-
     public Prefeitura(String nome, String endereco){
         this.nome = nome;
         this.endereco = endereco;
@@ -81,19 +81,47 @@ public class Prefeitura {
         this.secretarias = secretarias;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
+
+    public List<Licitacao> getLicitacoes() {
+
+        List<Licitacao> licitacoesRetorno = new ArrayList<>();
+
+        for(Licitacao licitacao : licitacoes){
+            if(licitacao.getStatusLicitacao().equals(StatusLicitacao.EM_ANDAMENTO)){
+                licitacoesRetorno.add(licitacao);
+            }
+        }
+        return licitacoesRetorno;
     }
 
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
+    public void setLicitacoes(List<Licitacao> licitacoes) {
+        this.licitacoes = licitacoes;
     }
 
-    public List<Licitacao> getLicitacaos() {
-        return licitacaos;
+    public List<Proposta> getPropostas() {
+        return propostas;
     }
 
-    public void setLicitacaos(List<Licitacao> licitacaos) {
-        this.licitacaos = licitacaos;
+    public void setPropostas(List<Proposta> propostas) {
+        this.propostas = propostas;
     }
+
+    public void addLicitacao(Licitacao licitacao){
+        this.licitacoes.add(licitacao);
+    }
+
+    public void deleteLicitacao(Licitacao licitacao){
+        this.licitacoes.remove(licitacao);
+    }
+
+    public void addProposta(Proposta proposta){
+        this.propostas.add(proposta);
+    }
+
+    public void deleteProposta(Proposta proposta){
+        this.propostas.remove(proposta);
+    }
+
+
+
 }

@@ -1,15 +1,7 @@
 package com.br.prefeitura.entities;
 
 import com.br.prefeitura.enums.StatusProposta;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,10 +23,15 @@ public class Proposta {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @NotNull(message = "O campo não pode ser nulo")
+
     @ManyToOne
-    @JoinColumn(name = "prefeitura_id", nullable = false)
+    @JoinColumn(name = "prefeitura_id")
     private Prefeitura prefeitura;
+
+    @NotNull(message = "O campo não pode ser nulo")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "licitacao_id")
+    private Licitacao licitacao;
 
     @NotNull(message = "O campo não pode ser nulo")
     @NotEmpty(message = "O campo não pode ser vazio")
@@ -47,12 +44,10 @@ public class Proposta {
     @Column(name = "descricao", length = 250, nullable = false)
     private String descricao;
 
-    @Column(name = "data_envio", nullable = false, updatable = false)
+    @Column(name = "data_envio", updatable = false)
     private final LocalDate dataEnvio = LocalDate.now();
 
     @NotNull(message = "O campo não pode ser nulo")
-    @NotBlank(message = "O campo não pode ser vazio ou em branco")
-    @Size(max = 25, message = "O campo não pode ter mais de 25 caracteres")
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 25, nullable = false)
     private StatusProposta statusProposta;
@@ -112,5 +107,13 @@ public class Proposta {
 
     public void setStatusProposta(StatusProposta statusProposta) {
         this.statusProposta = statusProposta;
+    }
+
+    public @NotNull(message = "O campo não pode ser nulo") Licitacao getLicitacao() {
+        return licitacao;
+    }
+
+    public void setLicitacao(@NotNull(message = "O campo não pode ser nulo") Licitacao licitacao) {
+        this.licitacao = licitacao;
     }
 }

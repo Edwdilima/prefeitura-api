@@ -1,5 +1,11 @@
 package com.br.prefeitura.entities;
 
+import com.br.prefeitura.entities.Licitacao;
+import com.br.prefeitura.entities.Obra;
+import com.br.prefeitura.entities.Prefeitura;
+import com.br.prefeitura.exceptions.LicitacaoNaoEncontradaException;
+import com.br.prefeitura.exceptions.ObraNaoEncontradaException;
+import com.br.prefeitura.exceptions.PrefeituraNaoEncontradaException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +14,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Entity
@@ -23,11 +30,11 @@ public class Secretaria {
     private Prefeitura prefeitura;
 
 
-    @OneToMany(mappedBy = "secretaria", cascade = CascadeType.ALL)
-    private List<Usuario> usuarios = new ArrayList<>();
-
     @OneToMany(mappedBy = "secretaria")
     private List<Obra> obras = new ArrayList<>();
+
+    @OneToMany(mappedBy = "secretaria")
+    private List<Licitacao> licitacoes = new ArrayList<>();
 
     @NotNull(message = "O campo não pode ser nulo")
     @NotBlank(message = "O campo não pode ser vazio ou em branco")
@@ -96,14 +103,6 @@ public class Secretaria {
         this.senha = senha;
     }
 
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
     public List<Obra> getObras() {
         return obras;
     }
@@ -111,4 +110,39 @@ public class Secretaria {
     public void setObras(List<Obra> obras) {
         this.obras = obras;
     }
+
+    public List<Licitacao> getLicitacoes() {
+        return licitacoes;
+    }
+
+    public void setLicitacoes(List<Licitacao> licitacoes) {
+        this.licitacoes = licitacoes;
+    }
+
+    // Método para retornar uma licitação com base no ID
+    public Licitacao findLicitacaoById(Long licitacaoId) {
+
+        // Busca a licitação na lista de licitações
+        for (Licitacao licitacao : licitacoes) {
+            if (licitacao.getId().equals(licitacaoId)) {
+                return licitacao; // Retorna a licitação encontrada
+            }
+        }
+        // lança uma exceção caso não encontre
+        throw new LicitacaoNaoEncontradaException(licitacaoId);
+    }
+
+    // Método para retornar uma obra com base no ID
+    public Obra findObraById(Long obraId) {
+
+        // Busca a obra na lista de obras
+        for (Obra obra : obras) {
+            if (obra.getId().equals(obraId)) {
+                return obra; // Retorna a obra encontrada
+            }
+        }
+        // lança uma exceção caso não encontre
+        throw new ObraNaoEncontradaException(obraId);
+    }
+
 }
