@@ -17,14 +17,12 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "O campo não pode ser nulo")
     @ManyToOne
-    @JoinColumn(name = "prefeitura_id", nullable = false)
+    @JoinColumn(name = "prefeitura_id")
     private Prefeitura prefeitura;
 
-    @NotNull(message = "O campo não pode ser nulo")
     @ManyToOne
-    @JoinColumn(name = "secretaria_id", nullable = false)
+    @JoinColumn(name = "secretaria_id")
     private Secretaria secretaria;
 
     @OneToMany(mappedBy = "usuario")
@@ -49,16 +47,13 @@ public class Usuario {
     private String senha;
 
     @NotNull(message = "O campo não pode ser nulo")
-    @NotBlank(message = "O campo não pode ser vazio ou em branco")
     @Enumerated(EnumType.STRING)
     @Column(name = "privilegio", nullable = false)
     private Privilegio privilegio;
 
     public Usuario(){}
-    public Usuario(Prefeitura prefeitura, Secretaria secretaria, String nome,
+    public Usuario(String nome,
                    String email, String senha, Privilegio privilegio){
-        this.prefeitura = prefeitura;
-        this.secretaria = secretaria;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
